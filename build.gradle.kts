@@ -23,6 +23,8 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
+	testImplementation("io.mockk:mockk:1.8.9.kotlin13")
+	testImplementation("io.kotlintest:kotlintest-runner-junit5:3.3.2")
 }
 
 tasks.withType<Test> {
