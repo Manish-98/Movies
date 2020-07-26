@@ -31,5 +31,7 @@ class MovieService {
     }
 
     fun getMovies(): List<Movie> = movies
+    fun getMovieById(imdbId: String): Movie = movies.find { it.imdbID == imdbId } ?: Movie()
+
 
 }

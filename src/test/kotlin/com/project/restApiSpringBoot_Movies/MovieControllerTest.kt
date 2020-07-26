@@ -26,11 +26,33 @@ internal class MovieControllerTest {
         every { movieService.getMovies() } returns listOf(movie1)
 
         val mockMvc = MockMvcBuilders.standaloneSetup(MovieController(movieService)).build()
-        mockMvc.perform(MockMvcRequestBuilders.get("/movies"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/allMovies"))
                 .andExpect(MockMvcResultMatchers
                         .status()
                         .is2xxSuccessful)
 
         verify { movieService.getMovies() }
+    }
+
+    @Test
+    internal fun `should return movie by given imdbId`() {
+        val movieService = mockk<MovieService>()
+        val movie = Movie(
+                "imdb01",
+                "Movie1",
+                "Director1",
+                listOf("Actor1", "Actor2"),
+                listOf("Actress1"),
+                listOf("Genre1"),
+                120
+        )
+
+        every { movieService.getMovieById("imdb01") } returns movie
+        val mockMvc = MockMvcBuilders.standaloneSetup(MovieController(movieService)).build()
+        mockMvc.perform(MockMvcRequestBuilders.get("/movie/imdb01"))
+                .andExpect(MockMvcResultMatchers.status()
+                        .is2xxSuccessful)
+
+        verify { movieService.getMovieById("imdb01") }
     }
 }
